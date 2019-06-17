@@ -4,9 +4,8 @@ import re
 
 
 def checkout(skus):
-
     # Check to see if there are invlaid chars before we execute
-    if special_match(skus) and skus != "":
+    if charRange(skus) and whiteSpace(skus):
         value = basket(skus)
     else:
         value = -1
@@ -15,7 +14,12 @@ def checkout(skus):
 
 
 # Regex check
-def special_match(strg, search=re.compile(r'[^A-D.]').search):
+def charRange(strg, search=re.compile(r'[^A-D.]').search):
+    return not bool(search(strg))
+
+
+# Regex check
+def whiteSpace(strg, search=re.compile(r'[^\S\n\t]').search):
     return not bool(search(strg))
 
 

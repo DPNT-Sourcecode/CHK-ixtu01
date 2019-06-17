@@ -20,7 +20,7 @@ class TestCheckout():
         assert checkout_solution.checkout(input_4) == 180
 
     def test_checkout_empty(self):
-        assert checkout_solution.checkout(" ") == -1
+        assert checkout_solution.checkout("") == 0
 
     def test_checkout_no_deal(self):
         assert checkout_solution.checkout("CCCDDD") == 105
