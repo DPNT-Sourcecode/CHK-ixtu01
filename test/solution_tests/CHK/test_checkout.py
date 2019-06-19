@@ -24,3 +24,9 @@ class TestCheckout():
 
     def test_checkout_no_deal(self):
         assert checkout_solution.checkout("CCCDDD") == 105
+
+    def test_checkout_ex2_new_deal_1(self):
+        assert checkout_solution.checkout("BBBBBBBBBEEEEEEE") == 460
+
+    def test_checkout_ex2_new_deal_2(self):
+        assert checkout_solution.checkout("BBBBBBBBEEEEEEE") == 460
