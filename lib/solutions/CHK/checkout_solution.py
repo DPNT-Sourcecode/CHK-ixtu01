@@ -6,116 +6,86 @@ import re
 def checkout(skus):
     # Check to see if there are invlaid chars before we execute
     if charRange(skus) and whiteSpace(skus):
-        value = basket(skus)
+        # Sort the array of items and add offers
+        value = addOffer(sort(list(skus)))
     else:
         value = -1
-
     return value
 
 
-# Regex check
-def charRange(strg, search=re.compile(r'[^A-D.]').search):
-    return not bool(search(strg))
+# Applying offers
+def addOffer(list):
 
-
-# Regex check
-def whiteSpace(strg, search=re.compile(r'[^\S\n\t]').search):
-    return not bool(search(strg))
-
-
-# Basket of items
-def basket(skus):
-
-    # Convert string into list
-    cart = sort(list(skus))
-    nested_list_A = []
-    nested_list_B = []
-    nested_list_C = []
-    nested_list_D = []
-    itemAPrice = 50
-    itemBPrice = 30
-    itemCPrice = 20
-    itemDPrice = 15
     itemA = 'A'
     itemB = 'B'
     itemC = 'C'
     itemD = 'D'
-    valueA = 0
-    valueB = 0
-    valueC = 0
-    valueD = 0
+    itemE = 'E'
+    # Convert string into list
+    listA = createLists(list, itemA)
+    listB = createLists(list, itemB)
+    listC = createLists(list, itemC)
+    listD = createLists(list, itemD)
+    listE = createLists(list, itemE)
 
-    # Sort the list into separate lists
-    for i in range(len(cart)):
-        if cart[i] == itemA:
-            nested_list_A.append(cart[i])
-        elif cart[i] == itemB:
-            nested_list_B.append(cart[i])
-        elif cart[i] == itemC:
-            nested_list_C.append(cart[i])
-        elif cart[i] == itemD:
-            nested_list_D.append(cart[i])
+    # Sort out the deals here
+    totalA = sum(x.count(itemA) for x in listA)
+    totalB = sum(x.count(itemB) for x in listB)
+    totalC = sum(x.count(itemC) for x in listC)
+    totalD = sum(x.count(itemD) for x in listD)
+    totalE = sum(x.count(itemE) for x in listE)
 
-    # With the sorted lists get their values
-    if itemA in skus:
-        valueA = getTotal(nested_list_A, itemA, itemAPrice)
-    if itemB in skus:
-        valueB = getTotal(nested_list_B, itemB, itemBPrice)
-    if itemC in skus:
-        valueC = getTotal(nested_list_C, itemC, itemCPrice)
-    if itemD in skus:
-        valueD = getTotal(nested_list_D, itemD, itemDPrice)
+    costA = 0
+    costB = 0
+    costC = 0
+    costD = 0
+    costE = 0
 
-    # Add all the values and return the total
-    cartTotal = valueA + valueB + valueC + valueD
-    return cartTotal
+    if itemA in list:
+        offer = 5
+        countListA = [listA[i:i + offer] for i in range(0, len(listA), offer)]
+        # Count how many deals there are for this item in the list
+        counterA = [len(x) for x in countListA if x != ""]
+        # How man 5 deals
+        deal5 = counterA.count(5)
+        # How many 3 deals
+        deal3 = counterA.count(3)
+        # Number of no deals
+        nodealA = totalA - (deal5*5) - (deal3*3)
+        # Calculate Total
+        costA = (deal5*200) + (deal3*130) + (nodealA*50)
+    if itemB in list:
+        offer = 2
+        countListB = [listB[i:i + offer] for i in range(0, len(listB), offer)]
+        counterB = [len(x) for x in countListB if x != ""]
+        deal2 = counterB.count(2)
+        nodealB = totalB - deal2*2
+        costB = (deal2*45) + (nodealB*30)
+    if itemC in list:
+        costC = totalC*20
+    if itemD in list:
+        costD = totalD*15
+    if itemE in list:
+        offer = 2
+        countListE = [listE[i:i + offer] for i in range(0, len(listE), offer)]
+        counterE = [len(x) for x in countListE if x != ""]
+        deal2 = counterE.count(2)
+        costE = totalE * 40
+        # E Deal checking if there is a spare item for B
+        if deal2 != 0 and nodealB != 0:
+            offerB = nodealB*30
+            costB = costB - offerB
 
-
-#  Calculate totals and offers if they apply
-def getTotal(list, item, price):
-    offerPrice = 1
-    itemTotal = 0
-    # Apply and calculate totals for each item
-    if item == 'A':
-        offerPrice = 130
-        itemTotal = addOffer(list, item, 3, price, offerPrice)
-    elif item == 'B':
-        offerPrice = 45
-        itemTotal = addOffer(list, item, 2, price, offerPrice)
-    elif item == 'C':
-        itemTotal = addOffer(list, item, 1, price, offerPrice)
-    elif item == 'D':
-        itemTotal = addOffer(list, item, 1, price, offerPrice)
-    else:
-        itemTotal = addOffer(list, item, 1, price, offerPrice)
-
-    return itemTotal
-
-
-# Applying offers
-def addOffer(list, item, offer, price, offerPrice):
-    total = 0
-    # Count the size of each sublist - create sublists of offers
-    list = [list[i:i + offer] for i in range(0, len(list), offer)]
-    # Count how manu items there are in all lists
-    totalSum = sum(x.count(item) for x in list)
-    # Count how many deals there are for this item in the list
-    counter = [len(x) for x in list if x != ""]
-    if offer == 3:
-        deal = counter.count(3)
-        newOffer = deal * offerPrice
-        nodeal = (totalSum - (deal * 3)) * price
-        total = newOffer + nodeal
-    elif offer == 2:
-        deal = counter.count(2)
-        newOffer = deal * offerPrice
-        nodeal = (totalSum - (deal * 2)) * price
-        total = newOffer + nodeal
-    else:
-        nodeal1 = counter.count(1)
-        total = (nodeal1 * price)
-
+    total = costA + costB + costC + costD + costE
     return total
+
+
+def createLists(cart, item):
+    list = []
+    for i in range(len(cart)):
+        if cart[i] == item:
+            list.append(cart[i])
+    return list
 
 
 # Sort list
@@ -124,3 +94,13 @@ def sort(lst):
     lst.sort()
     lst = [int(i) if i.isdigit() else i for i in lst]
     return lst
+
+
+# Regex check
+def charRange(strg, search=re.compile(r'[^A-E.]').search):
+    return not bool(search(strg))
+
+
+# Regex check
+def whiteSpace(strg, search=re.compile(r'[^\S\n\t]').search):
+    return not bool(search(strg))
