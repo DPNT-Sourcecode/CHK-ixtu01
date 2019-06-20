@@ -8,8 +8,10 @@ def checkout(skus):
     if charRange(skus) and whiteSpace(skus):
         # Sort the array of items and add offers
         value = addOffer(sort(list(skus)))
+        print(value)
     else:
         value = -1
+        print(value)
     return value
 
 
@@ -54,11 +56,10 @@ def addOffer(list):
             # How many 3 deals
             deal3 = counterA.count(3)
             # Number of no deals
-            print(deal5 + deal3)
             nodealA = totalA - (deal5*5) - (deal3*3)
             # Calculate Total
             costA = (deal5*200) + (deal3*130) + (nodealA*50)
-        # If not apply just the three deal
+        # If nto apply just the three deal
         else:
             offer = 3
             countListA = [listA[i:i + offer] for i in range(0, len(listA), offer)]
@@ -67,7 +68,6 @@ def addOffer(list):
             # How many 3 deals
             deal3 = counterA.count(3)
             # Number of no deals
-            print(deal3)
             nodealA = totalA - (deal3*3)
             # Calculate Total
             costA = (deal3*130) + (nodealA*50)
