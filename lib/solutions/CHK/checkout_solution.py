@@ -4,7 +4,7 @@ import re
 
 
 def checkout(skus):
-    # Check to see if there are invlaid chars before we execute
+    # Check toA see if there are invlaid chars before we execute
     if charRange(skus) and whiteSpace(skus):
         # Sort the array of items and add offers
         value = addOffer(sort(list(skus)))
@@ -42,49 +42,51 @@ def addOffer(list):
     costC = 0
     costD = 0
     costE = 0
-
+    nodeal = 0
     nodealA = 0
     nodealB = 0
+    total = 0
+    four = 0
+    three = 0
 
     if itemA in list:
-        # You have a problem when applying the offers here
+        normal = 0
         # Check if the 5 deal applies first
-        if len(listA) >= 5:
-            offer = 5
-            countListA = [listA[i:i + offer] for i in range(0, len(listA), offer)]
-            # Count how many deals there are for this item in the list
-            counterA = [len(x) for x in countListA if x != ""]
-            # How man 5 deals
-            deal5 = counterA.count(5)
-            # How many 3 deals
-            deal3 = counterA.count(3)
-            # Number of no deals
-            nodealA = totalA - (deal5*5) - (deal3*3)
-            # Calculate Total
-            costA = (deal5*200) + (deal3*130) + (nodealA*50)
-        # If nto apply just the three deal
-        else:
-            offer = 3
-            countListA = [listA[i:i + offer] for i in range(0, len(listA), offer)]
-            # Count how many deals there are for this item in the list
-            counterA = [len(x) for x in countListA if x != ""]
-            # How many 3 deals
-            deal3 = counterA.count(3)
-            # Number of no deals
-            nodealA = totalA - (deal3*3)
-            # Calculate Total
-            costA = (deal3*130) + (nodealA*50)
+        # Count how many deals there are for this item in the list
+        five = 5
+        countListA = [listA[i:i + five] for i in range(0, len(listA), five)]
+        # print(listA)
+        # print(countListA)
+        counterA = [len(x) for x in countListA if x != ""]
+        # How man 5 deals
+        deal5 = counterA.count(5)
+        # How many 3 deals
+        nodealA = totalA - (deal5 * 5)
+
+        if nodealA == 4:
+            nodeal = (nodealA - 3)
+            four = nodeal
+            normal = 1
+        elif nodealA == 3:
+            three = 1
+        elif nodealA == 2:
+            normal = 2
+        elif nodealA == 1:
+            normal = 1
+
+        # Calculate Total
+        costA = (deal5 * 200) + (four * 130) + (three * 130) + (normal * 50)
     if itemB in list:
         offer = 2
         countListB = [listB[i:i + offer] for i in range(0, len(listB), offer)]
         counterB = [len(x) for x in countListB if x != ""]
-        deal2 = counterB.count(2)
-        nodealB = totalB - deal2*2
-        costB = (deal2*45) + (nodealB*30)
+        dealB = counterB.count(2)
+        nodealB = totalB - dealB * 2
+        costB = (dealB * 45) + (nodealB * 30)
     if itemC in list:
-        costC = totalC*20
+        costC = totalC * 20
     if itemD in list:
-        costD = totalD*15
+        costD = totalD * 15
     if itemE in list:
         offer = 2
         countListE = [listE[i:i + offer] for i in range(0, len(listE), offer)]
@@ -92,8 +94,11 @@ def addOffer(list):
         deal2 = counterE.count(2)
         costE = totalE * 40
         if deal2 != 0 and nodealB != 0:
-            offerB = nodealB*30
+            offerB = nodealB * 30
             costB = costB - offerB
+        elif deal2 != 0 and totalB != 0:
+            ans = (totalB - deal2)
+            costB = (ans * 30)
 
     total = costA + costB + costC + costD + costE
     return total

@@ -29,4 +29,10 @@ class TestCheckout():
         assert checkout_solution.checkout("BBBBBBBBBEEEEEEE") == 460
 
     def test_checkout_ex2_new_deal_2(self):
-        assert checkout_solution.checkout("BBBBBBBBEEEEEEE") == 460
+        assert checkout_solution.checkout("BBBBBBBBEEEEEEE") == 430
+
+    def test_checkout_ex2_big_deal(self):
+        assert checkout_solution.checkout("ABCDECBAABCABBAAAEEAA") == 665
+
+    def test_checkout_ex2_simple_deal(self):
+        assert checkout_solution.checkout("ABCDE") == 155
