@@ -43,6 +43,9 @@ def addOffer(list):
     costD = 0
     costE = 0
 
+    nodealA = 0
+    nodealB = 0
+
     if itemA in list:
         # You have a problem when applying the offers here
         # Check if the 5 deal applies first
