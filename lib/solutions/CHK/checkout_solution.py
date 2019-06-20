@@ -8,10 +8,8 @@ def checkout(skus):
     if charRange(skus) and whiteSpace(skus):
         # Sort the array of items and add offers
         value = addOffer(sort(list(skus)))
-        print(value)
     else:
         value = -1
-        print(value)
     return value
 
 
@@ -23,12 +21,15 @@ def addOffer(list):
     itemC = 'C'
     itemD = 'D'
     itemE = 'E'
+    itemF = 'F'
+
     # Convert string into list
     listA = createLists(list, itemA)
     listB = createLists(list, itemB)
     listC = createLists(list, itemC)
     listD = createLists(list, itemD)
     listE = createLists(list, itemE)
+    listF = createLists(list, itemF)
 
     # Sort out the deals here
     totalA = sum(x.count(itemA) for x in listA)
@@ -36,12 +37,15 @@ def addOffer(list):
     totalC = sum(x.count(itemC) for x in listC)
     totalD = sum(x.count(itemD) for x in listD)
     totalE = sum(x.count(itemE) for x in listE)
+    totalF = sum(x.count(itemF) for x in listF)
 
     costA = 0
     costB = 0
     costC = 0
     costD = 0
     costE = 0
+    costF = 0
+
     nodeal = 0
     nodealA = 0
     nodealB = 0
@@ -51,7 +55,6 @@ def addOffer(list):
 
     if itemA in list:
         normal = 0
-        # Check if the 5 deal applies first
         # Count how many deals there are for this item in the list
         five = 5
         countListA = [listA[i:i + five] for i in range(0, len(listA), five)]
@@ -99,8 +102,16 @@ def addOffer(list):
         elif deal2 != 0 and totalB != 0:
             ans = (totalB - deal2)
             costB = (ans * 30)
+    if itemF in list:
+        offer = 2
+        countListF = [listF[i:i + offer] for i in range(0, len(listF), offer)]
+        counterF = [len(x) for x in countListF if x != ""]
+        deal = counterF.count(2)
+        costF = totalF * 10
+        if(deal >= 1):
+            costF = costF - (deal*10)
 
-    total = costA + costB + costC + costD + costE
+    total = costA + costB + costC + costD + costE + costF
     return total
 
 
@@ -121,7 +132,7 @@ def sort(lst):
 
 
 # Regex check
-def charRange(strg, search=re.compile(r'[^A-E.]').search):
+def charRange(strg, search=re.compile(r'[^A-F.]').search):
     return not bool(search(strg))
 
 
