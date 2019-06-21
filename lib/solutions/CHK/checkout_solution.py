@@ -3,9 +3,8 @@ import re
 # skus = unicode string
 
 
-def checkout():
+def checkout(skus):
     # Check toA see if there are invlaid chars before we execute
-    skus = "FFFFFF"
     if charRange(skus) and whiteSpace(skus):
         # Sort the array of items and add offers
         value = addOffer(sort(list(skus)))
@@ -152,4 +151,3 @@ def charRange(strg, search=re.compile(r'[^A-F.]').search):
 def whiteSpace(strg, search=re.compile(r'[^\S\n\t]').search):
     return not bool(search(strg))
 
-checkout()
