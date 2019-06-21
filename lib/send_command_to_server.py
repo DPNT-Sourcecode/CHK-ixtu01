@@ -4,7 +4,7 @@ from tdl.runner.challenge_session import ChallengeSession
 from solutions.SUM import sum_solution
 from solutions.HLO import hello_solution
 from solutions.FIZ import fizz_buzz_solution
-from solutions.CHK_2 import checkout_solution
+from solutions.CHK import checkout_solution
 from runner.utils import Utils
 from runner.user_input_action import get_user_input
 
@@ -63,4 +63,5 @@ ChallengeSession\
     .with_config(Utils.get_config())\
     .with_action_provider(lambda: get_user_input(sys.argv[1:]))\
     .start()
+
 
