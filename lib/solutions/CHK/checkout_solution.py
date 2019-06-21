@@ -10,6 +10,7 @@ def checkout(skus):
         value = addOffer(sort(list(skus)))
     else:
         value = -1
+        print(value)
     return value
 
 
@@ -55,6 +56,8 @@ def addOffer(list):
 
     if itemA in list:
         normal = 0
+        # You have a problem when applying the offers here
+        # Check if the 5 deal applies first
         # Count how many deals there are for this item in the list
         five = 5
         countListA = [listA[i:i + five] for i in range(0, len(listA), five)]
@@ -107,9 +110,16 @@ def addOffer(list):
         countListF = [listF[i:i + offer] for i in range(0, len(listF), offer)]
         counterF = [len(x) for x in countListF if x != ""]
         deal = counterF.count(2)
+        nodeal = counterF.count(1)
         costF = totalF * 10
-        if(deal >= 1):
-            costF = costF - (deal*10)
+        if(deal >= 1 and totalF > 3 and nodeal > 1):
+            reduce = (totalF/deal) * 10
+            costF = costF - reduce
+        elif(nodeal > 0 and totalF > 1):
+            costF = costF - nodeal*10
+        elif(nodeal == 0 and ((totalF/deal) * 10)/costF == 0):
+            deal = deal - 1
+            costF = costF - deal*10
 
     total = costA + costB + costC + costD + costE + costF
     return total

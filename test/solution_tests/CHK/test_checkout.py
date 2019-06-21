@@ -36,3 +36,18 @@ class TestCheckout():
 
     def test_checkout_ex2_simple_deal(self):
         assert checkout_solution.checkout("ABCDE") == 155
+
+    def test_checkout_ex3_check_F(self):
+        assert checkout_solution.checkout("FF") == 20
+        assert checkout_solution.checkout("FFFF") == 30
+        assert checkout_solution.checkout("FFFFFF") == 40
+
+    def test_checkout_ex3_check_pairing(self):
+        assert checkout_solution.checkout("ABCDEFABCDEF") == 300
+        assert checkout_solution.checkout("CDFFAECBDEAB") == 300
+
+    def test_checkout_ex3_check_next(self):
+        assert checkout_solution.checkout("AAAAAEEBAAABBFFF") == 475
+
+    def test_checkout_ex3_check_final(self):
+        assert checkout_solution.checkout("FFABCDECBAABCABBAAAEEAAFF") == 695
