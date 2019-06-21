@@ -10,12 +10,12 @@ def checkout(skus):
         value = addOffer(sort(list(skus)))
     else:
         value = -1
-        print(value)
     return value
 
 
 # Applying offers
 def addOffer(list):
+
     itemA = 'A'
     itemB = 'B'
     itemC = 'C'
@@ -46,15 +46,12 @@ def addOffer(list):
     costE = 0
     costF = 0
 
-    nodeal = 0
-    nodealA = 0
-    nodealB = 0
-    total = 0
-    four = 0
-    three = 0
-
     if itemA in list:
         normal = 0
+        nodeal = 0
+        nodealA = 0
+        four = 0
+        three = 0
         # You have a problem when applying the offers here
         # Check if the 5 deal applies first
         # Count how many deals there are for this item in the list
@@ -81,6 +78,7 @@ def addOffer(list):
         costA = (deal5 * 200) + (four * 130) + (three * 130) + (normal * 50)
     if itemB in list:
         offer = 2
+        nodealB = 0
         countListB = [listB[i:i + offer] for i in range(0, len(listB), offer)]
         counterB = [len(x) for x in countListB if x != ""]
         dealB = counterB.count(2)
@@ -104,6 +102,7 @@ def addOffer(list):
             costB = (ans * 30)
     if itemF in list:
         offer = 2
+        nodeal = 0
         countListF = [listF[i:i + offer] for i in range(0, len(listF), offer)]
         counterF = [len(x) for x in countListF if x != ""]
         deal = counterF.count(2)
@@ -146,4 +145,3 @@ def charRange(strg, search=re.compile(r'[^A-F.]').search):
 # Regex check
 def whiteSpace(strg, search=re.compile(r'[^\S\n\t]').search):
     return not bool(search(strg))
-
