@@ -45,6 +45,7 @@ def addOffer(list):
     costD = 0
     costE = 0
     costF = 0
+    nodealB = 0
 
     if itemA in list:
         normal = 0
