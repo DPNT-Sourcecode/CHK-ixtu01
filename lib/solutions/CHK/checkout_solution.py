@@ -146,5 +146,3 @@ def charRange(strg, search=re.compile(r'[^A-F.]').search):
 def whiteSpace(strg, search=re.compile(r'[^\S\n\t]').search):
     return not bool(search(strg))
 
-checkout("FFFF")
-checkout("FFFFFF")
