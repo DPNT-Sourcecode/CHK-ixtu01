@@ -16,7 +16,6 @@ def checkout(skus):
 
 # Applying offers
 def addOffer(list):
-
     itemA = 'A'
     itemB = 'B'
     itemC = 'C'
@@ -61,8 +60,6 @@ def addOffer(list):
         # Count how many deals there are for this item in the list
         five = 5
         countListA = [listA[i:i + five] for i in range(0, len(listA), five)]
-        # print(listA)
-        # print(countListA)
         counterA = [len(x) for x in countListA if x != ""]
         # How man 5 deals
         deal5 = counterA.count(5)
@@ -149,3 +146,4 @@ def charRange(strg, search=re.compile(r'[^A-F.]').search):
 # Regex check
 def whiteSpace(strg, search=re.compile(r'[^\S\n\t]').search):
     return not bool(search(strg))
+
