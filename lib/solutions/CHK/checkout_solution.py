@@ -55,13 +55,8 @@ def addOffer(list):
         nodealA = 0
         four = 0
         three = 0
-        # You have a problem when applying the offers here
-        # Check if the 5 deal applies first
-        # Count how many deals there are for this item in the list
         five = 5
         countListA = [listA[i:i + five] for i in range(0, len(listA), five)]
-        # print(listA)
-        # print(countListA)
         counterA = [len(x) for x in countListA if x != ""]
         print(countListA)
         # How man 5 deals
@@ -150,3 +145,6 @@ def charRange(strg, search=re.compile(r'[^A-F.]').search):
 # Regex check
 def whiteSpace(strg, search=re.compile(r'[^\S\n\t]').search):
     return not bool(search(strg))
+
+checkout("FFFF")
+checkout("FFFFFF")
