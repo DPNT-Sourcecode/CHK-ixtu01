@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import re
 # noinspection PyUnusedLocal
 # skus = unicode string
