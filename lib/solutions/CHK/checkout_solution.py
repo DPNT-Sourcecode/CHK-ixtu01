@@ -45,7 +45,6 @@ def addOffer(list):
     costD = 0
     costE = 0
     costF = 0
-    nodealB = 0
 
     if itemA in list:
         normal = 0
@@ -78,6 +77,7 @@ def addOffer(list):
         costA = (deal5 * 200) + (four * 130) + (three * 130) + (normal * 50)
     if itemB in list:
         offer = 2
+        nodealB = 0
         countListB = [listB[i:i + offer] for i in range(0, len(listB), offer)]
         counterB = [len(x) for x in countListB if x != ""]
         dealB = counterB.count(2)
@@ -144,4 +144,3 @@ def charRange(strg, search=re.compile(r'[^A-F.]').search):
 # Regex check
 def whiteSpace(strg, search=re.compile(r'[^\S\n\t]').search):
     return not bool(search(strg))
-
