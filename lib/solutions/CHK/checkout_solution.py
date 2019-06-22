@@ -61,8 +61,6 @@ def addOffer(list):
         # Count how many deals there are for this item in the list
         five = 5
         countListA = [listA[i:i + five] for i in range(0, len(listA), five)]
-        # print(listA)
-        # print(countListA)
         counterA = [len(x) for x in countListA if x != ""]
         print(countListA)
         # How man 5 deals
@@ -93,6 +91,7 @@ def addOffer(list):
     if itemC in list:
         costC = totalC * 20
     if itemD in list:
+        offer = 1
         costD = totalD * 15
     if itemE in list:
         offer = 2
@@ -117,9 +116,15 @@ def addOffer(list):
         if costF > 20:
             # Even numbers
             if (totalF/deal == 2 and totalF > 2):
-                costF = costF - int((totalF/deal * 10))
+                if totalF > 40:
+                    costF = costF - int((totalF/deal * 10))
+                else:
+                    costF = costF - 10
             elif (totalF/deal != 2 and totalF > 2):
-                costF = costF - (deal - normal)*10
+                if(deal - normal == 0):
+                    costF = costF - (deal * 10)
+                else:
+                    costF = costF - (deal - normal)*10
 
     total = costA + costB + costC + costD + costE + costF
     return total
