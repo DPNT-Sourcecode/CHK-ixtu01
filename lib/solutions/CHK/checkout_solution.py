@@ -116,8 +116,8 @@ def addOffer(list):
         if costF > 20:
             # Even numbers
             if (totalF/deal == 2 and totalF > 2):
-                if totalF > 40:
-                    costF = costF - int((totalF/deal * 10))
+                if costF > 40:
+                    costF = costF - int((totalF/deal) * 10)
                 else:
                     costF = costF - 10
             elif (totalF/deal != 2 and totalF > 2):
@@ -154,3 +154,4 @@ def charRange(strg, search=re.compile(r'[^A-F.]').search):
 # Regex check
 def whiteSpace(strg, search=re.compile(r'[^\S\n\t]').search):
     return not bool(search(strg))
+
