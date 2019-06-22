@@ -1,8 +1,10 @@
+#!/usr/bin/env python
 import re
 # noinspection PyUnusedLocal
 # skus = unicode string
 
 
+# Checkout function to calculate cost of basket and offers
 def checkout(skus):
     # Check toA see if there are invlaid chars before we execute
     if charRange(skus) and whiteSpace(skus):
@@ -11,6 +13,7 @@ def checkout(skus):
         print(value)
     else:
         value = -1
+        print(value)
     return value
 
 
@@ -54,19 +57,22 @@ def addOffer(list):
         nodealA = 0
         four = 0
         three = 0
+        # Check if the 5 deal applies first
+        # Count how many deals there are for this item in the list
         five = 5
         countListA = [listA[i:i + five] for i in range(0, len(listA), five)]
         # print(listA)
         # print(countListA)
         counterA = [len(x) for x in countListA if x != ""]
+        print(countListA)
         # How man 5 deals
         deal5 = counterA.count(5)
         # How many 3 deals
         nodealA = totalA - (deal5 * 5)
 
         if nodealA == 4:
-            nodealA = (nodealA - 3)
-            four = nodealA
+            nodeal = (nodealA - 3)
+            four = nodeal
             normal = 1
         elif nodealA == 3:
             three = 1
@@ -102,20 +108,18 @@ def addOffer(list):
             costB = (ans * 30)
     if itemF in list:
         offer = 2
-        nodeal = 0
+        normal = 0
         countListF = [listF[i:i + offer] for i in range(0, len(listF), offer)]
         counterF = [len(x) for x in countListF if x != ""]
         deal = counterF.count(2)
-        nodeal = counterF.count(1)
+        normal = counterF.count(1)
         costF = totalF * 10
-        if(deal >= 1 and totalF > 3 and nodeal > 1):
-            reduce = (totalF/deal) * 10
-            costF = costF - reduce
-        elif(nodeal > 0 and totalF > 1):
-            costF = costF - nodeal*10
-        elif(nodeal == 0 and ((totalF/deal) * 10)/costF == 0):
-            deal = deal - 1
-            costF = costF - deal*10
+        if costF > 20:
+            # Even numbers
+            if (totalF/deal == 2 and totalF > 2):
+                costF = costF - int((totalF/deal * 10))
+            elif (totalF/deal != 2 and totalF > 2):
+                costF = costF - (deal - normal)*10
 
     total = costA + costB + costC + costD + costE + costF
     return total
@@ -145,13 +149,3 @@ def charRange(strg, search=re.compile(r'[^A-F.]').search):
 # Regex check
 def whiteSpace(strg, search=re.compile(r'[^\S\n\t]').search):
     return not bool(search(strg))
-
-
-checkout("FF")
-checkout("FFF")
-checkout("FFFF")
-checkout("FFFFFF")
-checkout("ABCDEFABCDEF")
-checkout("CDFFAECBDEAB")
-checkout("AAAAAEEBAAABBFFF")
-checkout("FFABCDECBAABCABBAAAEEAAFF")
