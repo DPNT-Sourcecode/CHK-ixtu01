@@ -11,7 +11,6 @@ def checkout(skus):
         print(value)
     else:
         value = -1
-        print(value)
     return value
 
 
@@ -55,23 +54,19 @@ def addOffer(list):
         nodealA = 0
         four = 0
         three = 0
-        # You have a problem when applying the offers here
-        # Check if the 5 deal applies first
-        # Count how many deals there are for this item in the list
         five = 5
         countListA = [listA[i:i + five] for i in range(0, len(listA), five)]
         # print(listA)
         # print(countListA)
         counterA = [len(x) for x in countListA if x != ""]
-        print(countListA)
         # How man 5 deals
         deal5 = counterA.count(5)
         # How many 3 deals
         nodealA = totalA - (deal5 * 5)
 
         if nodealA == 4:
-            nodeal = (nodealA - 3)
-            four = nodeal
+            nodealA = (nodealA - 3)
+            four = nodealA
             normal = 1
         elif nodealA == 3:
             three = 1
@@ -153,4 +148,3 @@ def whiteSpace(strg, search=re.compile(r'[^\S\n\t]').search):
 
 
 checkout("FFFF")
-checkout("FFFFFF")
